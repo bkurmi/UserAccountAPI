@@ -42,6 +42,9 @@ public class UserAccountDao {
 
 	public AccountDetails getAccountDetails(int accountId) {
 		Session session = HibernateUtility.getSessionFactory().openSession();
+		PersonalDetails personalDetails = (PersonalDetails) session.get(PersonalDetails.class, accountId);
+		AccountDetails accountDetails = (AccountDetails) session.get(AccountDetails.class, accountId);
+		accountDetails.setCustomerId(personalDetails.getCustomerId());
 		return (AccountDetails) session.get(AccountDetails.class, accountId);
 	}
 
@@ -49,9 +52,10 @@ public class UserAccountDao {
 		Session session = HibernateUtility.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(depositDetails);
-		
-		//update the total amount in AccountDetails table
-		AccountDetails accountDetails = (AccountDetails) session.get(AccountDetails.class, depositDetails.getAccountId());
+
+		// update the total amount in AccountDetails table
+		AccountDetails accountDetails = (AccountDetails) session.get(AccountDetails.class,
+				depositDetails.getAccountId());
 		accountDetails.setTotalAmount(accountDetails.getTotalAmount() + depositDetails.getAmountDeposited());
 		session.save(accountDetails);
 		session.getTransaction().commit();

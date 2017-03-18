@@ -53,6 +53,8 @@ public class MyResource {
 										@PathParam(value = "accountId") int accountId, 
 										@Context UriInfo uriInfo) {
 		AccountDetails details = service.getAccountDetails(accountId);
+		String accountDetailsUri = Utility.getUriForAccount(uriInfo, details);
+		details.setAccountDetailsUri(accountDetailsUri);
 		return Response.status(Status.ACCEPTED).entity(details).header("Access-Control-Allow-Origin", "*").build();
 	}
 

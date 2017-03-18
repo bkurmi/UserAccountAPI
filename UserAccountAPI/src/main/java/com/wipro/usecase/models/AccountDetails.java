@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -17,6 +18,12 @@ public class AccountDetails {
 	private String Ifsc;
 	private int zipCode;
 	private int totalAmount;
+
+	@Transient
+	private int customerId;
+
+	@Transient
+	private String accountDetailsUri;
 
 	public AccountDetails() {
 		super();
@@ -69,6 +76,22 @@ public class AccountDetails {
 
 	public void setTotalAmount(int totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getAccountDetailsUri() {
+		return accountDetailsUri;
+	}
+
+	public void setAccountDetailsUri(String accountDetailsUri) {
+		this.accountDetailsUri = accountDetailsUri;
 	}
 
 }
