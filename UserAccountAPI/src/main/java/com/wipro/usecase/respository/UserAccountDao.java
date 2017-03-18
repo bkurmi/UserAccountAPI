@@ -48,6 +48,7 @@ public class UserAccountDao {
 		return (AccountDetails) session.get(AccountDetails.class, accountId);
 	}
 
+	@SuppressWarnings("unused")
 	public void depositDetails(DepositDetails depositDetails) {
 		Session session = HibernateUtility.getSessionFactory().openSession();
 		session.beginTransaction();
@@ -56,8 +57,16 @@ public class UserAccountDao {
 		// update the total amount in AccountDetails table
 		AccountDetails accountDetails = (AccountDetails) session.get(AccountDetails.class,
 				depositDetails.getAccountId());
-		accountDetails.setTotalAmount(accountDetails.getTotalAmount() + depositDetails.getAmountDeposited());
-		session.save(accountDetails);
+
+		if (accountDetails != null) {
+			accountDetails.setTotalAmount(accountDetails.getTotalAmount() + depositDetails.getAmountDeposited());
+		} else {
+			ErrorMessage errorMessage = new ErrorMessage(404, "Invalid account number. Please enter valid account number.");
+			Response response = Response.status(Status.NOT_FOUND).entity(errorMessage)
+					.header("Access-Control-Allow-Origin", "*").build();
+			throw new WebApplicationException(response);
+		}
+
 		session.getTransaction().commit();
 		session.close();
 	}
