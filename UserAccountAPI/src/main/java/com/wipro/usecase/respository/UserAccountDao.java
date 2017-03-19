@@ -56,9 +56,11 @@ public class UserAccountDao {
 		// update the total amount in AccountDetails table
 		AccountDetails accountDetails = (AccountDetails) session.get(AccountDetails.class,
 				depositDetails.getAccountId());
-
+		PersonalDetails personalDetails = (PersonalDetails) session.get(PersonalDetails.class,
+				depositDetails.getAccountId());
 		if (accountDetails != null) {
 			accountDetails.setTotalAmount(accountDetails.getTotalAmount() + depositDetails.getAmountDeposited());
+			depositDetails.setCustomerId(personalDetails.getCustomerId());
 		} else {
 			ErrorMessage errorMessage = new ErrorMessage(404,
 					"Invalid account number. Please enter valid account number.");

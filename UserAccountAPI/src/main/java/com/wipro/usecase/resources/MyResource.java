@@ -64,14 +64,14 @@ public class MyResource {
 	 * @return String that will be returned as a APPLICATION_JSON response.
 	 */
 	@POST
-	@Path(value = "/{customerId}/accounts/{accountId}/deposits/{amountDeposited}/{paymentMode}")
+	@Path(value = "/accounts/{accountId}/deposits/{amountDeposited}/{paymentMode}/{chequeNumber}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response depositDetails(@PathParam(value = "customerId") int customerId,
-									@PathParam(value = "accountId") int accountId, 
+	public Response depositDetails(@PathParam(value = "accountId") int accountId, 
 									@PathParam(value = "amountDeposited") int amountDeposited,
-									@PathParam(value = "paymentMode") String paymentMode, 
+									@PathParam(value = "paymentMode") String paymentMode,
+									@PathParam(value = "chequeNumber") String chequeNumber,
 									@Context UriInfo uriInfo) {
-		DepositDetails depositDetails = new DepositDetails(customerId, accountId, amountDeposited, paymentMode);
+		DepositDetails depositDetails = new DepositDetails(accountId, amountDeposited, paymentMode,chequeNumber);
 		service.depositDetails(depositDetails);
 
 		String uri = Utility.getUriForAccount(uriInfo, depositDetails);

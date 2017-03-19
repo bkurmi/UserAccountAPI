@@ -14,10 +14,12 @@ public class DepositDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int transactionId;
+	@Transient
 	private int customerId;
 	private int accountId;
 	private int amountDeposited;
 	private String paymentMode;
+	private String chequeNumber;
 	@Transient
 	private String accountDetailsUri;
 
@@ -25,12 +27,12 @@ public class DepositDetails {
 		super();
 	}
 
-	public DepositDetails(int customerId, int accountId, int amountDeposited, String paymentMode) {
+	public DepositDetails(int accountId, int amountDeposited, String paymentMode, String chequeNumber) {
 		super();
-		this.customerId = customerId;
 		this.accountId = accountId;
 		this.amountDeposited = amountDeposited;
 		this.paymentMode = paymentMode;
+		this.chequeNumber = chequeNumber;
 	}
 
 	public int getTransactionId() {
@@ -79,5 +81,13 @@ public class DepositDetails {
 
 	public void setPaymentMode(String paymentMode) {
 		this.paymentMode = paymentMode;
+	}
+
+	public String getChequeNumber() {
+		return chequeNumber;
+	}
+
+	public void setChequeNumber(String chequeNumber) {
+		this.chequeNumber = chequeNumber;
 	}
 }
