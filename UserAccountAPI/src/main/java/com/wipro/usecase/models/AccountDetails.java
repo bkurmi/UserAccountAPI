@@ -20,6 +20,9 @@ public class AccountDetails {
 	private int totalAmount;
 
 	@Transient
+	private String priviledge;
+
+	@Transient
 	private int customerId;
 
 	@Transient
@@ -44,6 +47,14 @@ public class AccountDetails {
 
 	public void setAccountId(int accountId) {
 		this.accountId = accountId;
+	}
+
+	public String getPriviledge() {
+		return priviledge;
+	}
+
+	public void setPriviledge(String priviledge) {
+		this.priviledge = priviledge;
 	}
 
 	public String getBranch() {

@@ -22,6 +22,8 @@ public class DepositDetails {
 	private String chequeNumber;
 	@Transient
 	private String accountDetailsUri;
+	@Transient
+	private String priviledge;
 
 	public DepositDetails() {
 		super();
@@ -77,6 +79,14 @@ public class DepositDetails {
 
 	public String getPaymentMode() {
 		return paymentMode;
+	}
+
+	public String getPriviledge() {
+		return priviledge;
+	}
+
+	public void setPriviledge(String priviledge) {
+		this.priviledge = priviledge;
 	}
 
 	public void setPaymentMode(String paymentMode) {

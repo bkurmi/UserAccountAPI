@@ -44,6 +44,7 @@ public class UserAccountDao {
 		Session session = HibernateUtility.getSessionFactory().openSession();
 		PersonalDetails personalDetails = (PersonalDetails) session.get(PersonalDetails.class, accountId);
 		AccountDetails accountDetails = (AccountDetails) session.get(AccountDetails.class, accountId);
+		accountDetails.setPriviledge(personalDetails.getPriviledge());
 		accountDetails.setCustomerId(personalDetails.getCustomerId());
 		return (AccountDetails) session.get(AccountDetails.class, accountId);
 	}
@@ -59,6 +60,8 @@ public class UserAccountDao {
 		PersonalDetails personalDetails = (PersonalDetails) session.get(PersonalDetails.class,
 				depositDetails.getAccountId());
 		if (accountDetails != null) {
+			accountDetails.setPriviledge(personalDetails.getPriviledge());
+			depositDetails.setPriviledge(personalDetails.getPriviledge());
 			accountDetails.setTotalAmount(accountDetails.getTotalAmount() + depositDetails.getAmountDeposited());
 			depositDetails.setCustomerId(personalDetails.getCustomerId());
 		} else {
