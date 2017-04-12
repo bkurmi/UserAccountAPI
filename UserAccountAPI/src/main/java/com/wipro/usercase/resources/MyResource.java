@@ -5,6 +5,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.wipro.usercase.models.PersonalDetails;
 import com.wipro.usercase.services.UserAccountServices;
@@ -25,7 +27,8 @@ public class MyResource {
     @GET
     @Path(value = "/{userName}/{password}")
     @Produces(MediaType.APPLICATION_JSON)
-    public PersonalDetails getDetailsIfUserExists(@PathParam(value = "userName") String userName, @PathParam(value = "password") String password) {
-    	 return service.getDetailsIfUserExists(userName,password);
+    public Response getDetailsIfUserExists(@PathParam(value = "userName") String userName, @PathParam(value = "password") String password) {
+    	 PersonalDetails details = service.getDetailsIfUserExists(userName,password);
+    	 return Response.status(Status.ACCEPTED).entity(details).header("Access-Control-Allow-Origin", "*").build();
     }
 }
