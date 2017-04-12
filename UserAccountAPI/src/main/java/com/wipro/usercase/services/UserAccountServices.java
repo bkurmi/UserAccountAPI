@@ -9,5 +9,8 @@ public class UserAccountServices {
 	public PersonalDetails getDetailsIfUserExists(String userName, String password) {
 		return userAccountDao.getDetailsIfUserExists(userName, password);
 	}
+	public void addUserDetails() {
+		userAccountDao.addUserDetails();
+	}
 
 }

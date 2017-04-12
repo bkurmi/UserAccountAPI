@@ -1,6 +1,7 @@
 package com.wipro.usercase.resources;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -30,5 +31,11 @@ public class MyResource {
     public Response getDetailsIfUserExists(@PathParam(value = "userName") String userName, @PathParam(value = "password") String password) {
     	 PersonalDetails details = service.getDetailsIfUserExists(userName,password);
     	 return Response.status(Status.ACCEPTED).entity(details).header("Access-Control-Allow-Origin", "*").build();
+    }
+    
+    @POST
+    @Path(value = "/addDetails")
+    public void addUserDetails() {
+    	 service.addUserDetails();
     }
 }
