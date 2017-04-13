@@ -1,8 +1,6 @@
 package com.wipro.usecase.models;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,9 +26,9 @@ public class PersonalDetails {
 	private String userName;
 	private String password;
 	private String priviledge;
-	
+
 	@Transient
-	private List<Link> links = new ArrayList<>();
+	private String accountDetailsUri;
 
 	public PersonalDetails() {
 		super();
@@ -51,12 +49,12 @@ public class PersonalDetails {
 		this.priviledge = priviledge;
 	}
 
-	public List<Link> getLinks() {
-		return links;
+	public String getAccountDetailsUri() {
+		return accountDetailsUri;
 	}
 
-	public void setLinks(List<Link> links) {
-		this.links = links;
+	public void setAccountDetailsUri(String accountDetailsUri) {
+		this.accountDetailsUri = accountDetailsUri;
 	}
 
 	public String getName() {
@@ -145,20 +143,6 @@ public class PersonalDetails {
 
 	public void setPriviledge(String priviledge) {
 		this.priviledge = priviledge;
-	}
-
-	@Override
-	public String toString() {
-		return "PersonalDetails [customerId=" + customerId + ", name=" + name + ", address=" + address + ", dob=" + dob
-				+ ", city=" + city + ", state=" + state + ", country=" + country + ", accountId=" + accountId
-				+ ", userName=" + userName + ", password=" + password + ", priviledge=" + priviledge + "]";
-	}
-
-	public void addLink(String uri, String rel) {
-		Link link = new Link();
-		link.setLink(uri);
-		link.setRel(rel);
-		links.add(link);
 	}
 
 }

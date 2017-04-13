@@ -37,8 +37,7 @@ public class MyResource {
 			@PathParam(value = "password") String password, @Context UriInfo uriInfo) {
 		PersonalDetails details = service.getDetailsIfUserExists(userName, password);
 		String accountUri = Utility.getUriForAccount(uriInfo, details);
-		details.addLink(accountUri, "accountDetailsUri");
-
+		details.setAccountDetailsUri(accountUri);
 		return Response.status(Status.ACCEPTED).entity(details).header("Access-Control-Allow-Origin", "*").build();
 	}
 
@@ -74,7 +73,7 @@ public class MyResource {
 		service.depositDetails(depositDetails);
 
 		String uri = Utility.getUriForAccount(uriInfo, depositDetails);
-		depositDetails.addLink(uri, "accountDetailsUri");
+		depositDetails.setAccountDetailsUri(uri);
 		return Response.status(Status.ACCEPTED).entity(depositDetails).header("Access-Control-Allow-Origin", "*")
 				.build();
 	}
