@@ -1,11 +1,14 @@
 package com.wipro.usercase.models;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -25,19 +28,12 @@ public class PersonalDetails {
 	private String userName;
 	private String password;
 	private String priviledge;
+	
+	@Transient
+	private List<Link> links = new ArrayList<>();
 
 	public PersonalDetails() {
 		super();
-	}
-
-	public PersonalDetails(String name, String address, Date dob, String city, String state, String country) {
-		super();
-		this.name = name;
-		this.address = address;
-		this.dob = dob;
-		this.city = city;
-		this.state = state;
-		this.country = country;
 	}
 
 	public PersonalDetails(String name, String address, Date dob, String city, String state, String country,
@@ -53,6 +49,14 @@ public class PersonalDetails {
 		this.userName = userName;
 		this.password = password;
 		this.priviledge = priviledge;
+	}
+
+	public List<Link> getLinks() {
+		return links;
+	}
+
+	public void setLinks(List<Link> links) {
+		this.links = links;
 	}
 
 	public String getName() {
@@ -149,7 +153,12 @@ public class PersonalDetails {
 				+ ", city=" + city + ", state=" + state + ", country=" + country + ", accountId=" + accountId
 				+ ", userName=" + userName + ", password=" + password + ", priviledge=" + priviledge + "]";
 	}
-	
-	
+
+	public void addLink(String uri, String rel) {
+		Link link = new Link();
+		link.setLink(uri);
+		link.setRel(rel);
+		links.add(link);
+	}
 
 }
