@@ -12,8 +12,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
-import com.wipro.usercase.models.ErrorMessage;
-import com.wipro.usercase.models.PersonalDetails;
+import com.wipro.usecase.models.ErrorMessage;
+import com.wipro.usecase.models.PersonalDetails;
 
 public class UserAccountDao {
 

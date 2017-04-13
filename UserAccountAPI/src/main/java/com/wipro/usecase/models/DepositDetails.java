@@ -1,4 +1,4 @@
-package com.wipro.usercase.models;
+package com.wipro.usecase.models;
 
 public class DepositDetails {
 

@@ -1,4 +1,4 @@
-package com.wipro.usercase.resources;
+package com.wipro.usecase.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -11,8 +11,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
 
-import com.wipro.usercase.models.PersonalDetails;
-import com.wipro.usercase.services.UserAccountServices;
+import com.wipro.usecase.models.PersonalDetails;
+import com.wipro.usecase.services.UserAccountServices;
 
 /**
  * Root resource (exposed at "myresource" path)

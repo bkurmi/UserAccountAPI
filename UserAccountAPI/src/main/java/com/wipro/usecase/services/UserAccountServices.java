@@ -1,7 +1,7 @@
-package com.wipro.usercase.services;
+package com.wipro.usecase.services;
 
+import com.wipro.usecase.models.PersonalDetails;
 import com.wipro.usecase.respository.UserAccountDao;
-import com.wipro.usercase.models.PersonalDetails;
 
 public class UserAccountServices {
 
