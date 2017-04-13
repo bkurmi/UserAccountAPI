@@ -15,6 +15,6 @@
 		<property name="hbm2ddl.auto">update</property>
 
 		<!-- Mapping Class -->
-		<mapping class="com.wipro.usercase.models.PersonalDetails"></mapping>
+		<mapping class="com.wipro.usecase.models.PersonalDetails"></mapping>
 	</session-factory>
 </hibernate-configuration>
