@@ -33,7 +33,7 @@ public class UserAccountDao {
 
 		} else {
 			ErrorMessage errorMessage = new ErrorMessage(404, "You have Entered wrong id and Password");
-			Response response = Response.status(Status.NOT_FOUND).entity(errorMessage).build();
+			Response response = Response.status(Status.NOT_FOUND).entity(errorMessage).header("Access-Control-Allow-Origin", "*").build();
 			throw new WebApplicationException(response);
 		}
 
