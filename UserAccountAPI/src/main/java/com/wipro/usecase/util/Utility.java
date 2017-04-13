@@ -13,4 +13,13 @@ public class Utility {
 		return uri;
 	}
 
+	public static String getUriForAccount(UriInfo uriInfo, PersonalDetails details) {
+		String uri = uriInfo.getBaseUriBuilder()
+				.path(MyResource.class)
+				.path(details.getUserName())
+				.path("accounts")
+				.path(details.getAccountId()+"").build().toString();
+		return uri;
+	}
+
 }

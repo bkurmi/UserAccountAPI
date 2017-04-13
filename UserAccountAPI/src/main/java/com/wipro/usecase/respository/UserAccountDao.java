@@ -12,16 +12,17 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
+import com.wipro.usecase.models.AccountDetails;
 import com.wipro.usecase.models.ErrorMessage;
 import com.wipro.usecase.models.PersonalDetails;
+import com.wipro.usecase.util.HibernateUtility;
 
 public class UserAccountDao {
 
 	@SuppressWarnings("unchecked")
 	public PersonalDetails getDetailsIfUserExists(String userName, String password) {
 
-		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-		Session session = sessionFactory.openSession();
+		Session session = HibernateUtility.getSessionFactory().openSession();
 		session.beginTransaction();
 		List<PersonalDetails> details = session.createCriteria(PersonalDetails.class)
 				.add(Restrictions.eq("userName", userName)).list();
@@ -33,21 +34,29 @@ public class UserAccountDao {
 
 		} else {
 			ErrorMessage errorMessage = new ErrorMessage(404, "You have Entered wrong id and Password");
-			Response response = Response.status(Status.NOT_FOUND).entity(errorMessage).header("Access-Control-Allow-Origin", "*").build();
+			Response response = Response.status(Status.NOT_FOUND).entity(errorMessage)
+					.header("Access-Control-Allow-Origin", "*").build();
 			throw new WebApplicationException(response);
 		}
 
 	}
 
-	public void addUserDetails() {
+	public AccountDetails getAccountDetails(String userName, int accountId) {
+		Session session = HibernateUtility.getSessionFactory().openSession();
+		return (AccountDetails) session.get(AccountDetails.class, accountId);
+	}
+
+	// Methods for adding Test Data
+	public void addTestData() {
 		PersonalDetails userDetails = new PersonalDetails("Bhawesh Kurmi", "D-102, montvert Tropez, Kaspatewasti",
-				new Date(), "Pune", "Maharashtra", "India", 12356, "bkurmi", "password", "User");
-		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-		Session session = sessionFactory.openSession();
+				new Date(), "Pune", "Maharashtra", "India", 1, "bkurmi", "password", "User");
+		AccountDetails accountDetails = new AccountDetails(12356, "ICICI Wakad", "ICICI00005", 411057, 45454);
+
+		Session session = HibernateUtility.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(userDetails);
+		session.save(accountDetails);
 		session.getTransaction().commit();
 		session.close();
 	}
-
 }

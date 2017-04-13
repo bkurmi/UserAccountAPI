@@ -16,5 +16,6 @@
 
 		<!-- Mapping Class -->
 		<mapping class="com.wipro.usecase.models.PersonalDetails"></mapping>
+		<mapping class="com.wipro.usecase.models.AccountDetails"></mapping>
 	</session-factory>
 </hibernate-configuration>

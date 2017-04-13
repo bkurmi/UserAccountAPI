@@ -15,20 +15,20 @@ public class AccountDetails {
 	private int accountId;
 	private String branch;
 	private String Ifsc;
-	private String zipCode;
-	private String totBalance;
+	private int zipCode;
+	private int totalAmount;
 
 	public AccountDetails() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public AccountDetails(String branch, String ifsc, String zipCode, String totBalance) {
+	public AccountDetails(int accountId, String branch, String ifsc, int zipCode, int totalAmount) {
 		super();
+		this.accountId = accountId;
 		this.branch = branch;
 		Ifsc = ifsc;
 		this.zipCode = zipCode;
-		this.totBalance = totBalance;
+		this.totalAmount = totalAmount;
 	}
 
 	public int getAccountId() {
@@ -55,22 +55,20 @@ public class AccountDetails {
 		Ifsc = ifsc;
 	}
 
-	public String getZipCode() {
+	public int getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(String zipCode) {
+	public void setZipCode(int zipCode) {
 		this.zipCode = zipCode;
 	}
 
-	public String getTotBalance() {
-		return totBalance;
+	public int getTotalAmount() {
+		return totalAmount;
 	}
 
-	public void setTotBalance(String totBalance) {
-		this.totBalance = totBalance;
+	public void setTotalAmount(int totalAmount) {
+		this.totalAmount = totalAmount;
 	}
-
-	
 
 }
