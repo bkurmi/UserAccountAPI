@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import com.wipro.usecase.models.AccountDetails;
+import com.wipro.usecase.models.DepositDetails;
 import com.wipro.usecase.models.PersonalDetails;
 import com.wipro.usecase.services.UserAccountServices;
 import com.wipro.usecase.util.Utility;
@@ -27,7 +28,7 @@ public class MyResource {
 	/**
 	 * Method handling HTTP GET requests.
 	 * 
-	 * @return String that will be returned as a text/plain response.
+	 * @return String that will be returned as a APPLICATION_JSON response.
 	 */
 	@GET
 	@Path(value = "/{userName}/{password}")
@@ -42,23 +43,45 @@ public class MyResource {
 	}
 
 	/**
-	 * Method handling HTTP GET requests.
+	 * Method handling HTTP @GET requests.
 	 * 
-	 * @return String that will be returned as a text/plain response.
+	 * @return String that will be returned as a APPLICATION_JSON response.
 	 */
 	@GET
-	@Path(value = "/{userName}/accounts/{accountId}")
+	@Path(value = "/{customerId}/accounts/{accountId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAccountDetails(@PathParam(value = "userName") String userName,
-			@PathParam(value = "accountId") int accountId, @Context UriInfo uriInfo) {
-		AccountDetails details = service.getAccountDetails(userName, accountId);
-		// String uri = Utility.getUriForSelf(uriInfo, details);
-		// details.addLink(uri, "self");
+	public Response getAccountDetails(@PathParam(value = "customerId") int customerId,
+										@PathParam(value = "accountId") int accountId, 
+										@Context UriInfo uriInfo) {
+		AccountDetails details = service.getAccountDetails(accountId);
 		return Response.status(Status.ACCEPTED).entity(details).header("Access-Control-Allow-Origin", "*").build();
 	}
 
-	// Add Test Data in table
+	/**
+	 * Method handling HTTP POST requests.
+	 * 
+	 * @return String that will be returned as a APPLICATION_JSON response.
+	 */
+	@POST
+	@Path(value = "/{customerId}/accounts/{accountId}/deposits/{amountDeposited}/{paymentMode}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response depositDetails(@PathParam(value = "customerId") int customerId,
+									@PathParam(value = "accountId") int accountId, 
+									@PathParam(value = "amountDeposited") int amountDeposited,
+									@PathParam(value = "paymentMode") String paymentMode, 
+									@Context UriInfo uriInfo) {
+		DepositDetails depositDetails = new DepositDetails(customerId, accountId, amountDeposited, paymentMode);
+		service.depositDetails(depositDetails);
 
+		String uri = Utility.getUriForAccount(uriInfo, depositDetails);
+		depositDetails.addLink(uri, "accountDetailsUri");
+		return Response.status(Status.ACCEPTED).entity(depositDetails).header("Access-Control-Allow-Origin", "*")
+				.build();
+	}
+
+	/**
+	 * Test Data Insertion Method
+	 */
 	@POST
 	@Path(value = "addtestdata")
 	public void addTestData() {

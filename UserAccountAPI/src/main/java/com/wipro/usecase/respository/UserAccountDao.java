@@ -8,11 +8,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
 import com.wipro.usecase.models.AccountDetails;
+import com.wipro.usecase.models.DepositDetails;
 import com.wipro.usecase.models.ErrorMessage;
 import com.wipro.usecase.models.PersonalDetails;
 import com.wipro.usecase.util.HibernateUtility;
@@ -41,9 +40,22 @@ public class UserAccountDao {
 
 	}
 
-	public AccountDetails getAccountDetails(String userName, int accountId) {
+	public AccountDetails getAccountDetails(int accountId) {
 		Session session = HibernateUtility.getSessionFactory().openSession();
 		return (AccountDetails) session.get(AccountDetails.class, accountId);
+	}
+
+	public void depositDetails(DepositDetails depositDetails) {
+		Session session = HibernateUtility.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.save(depositDetails);
+		
+		//update the total amount in AccountDetails table
+		AccountDetails accountDetails = (AccountDetails) session.get(AccountDetails.class, depositDetails.getAccountId());
+		accountDetails.setTotalAmount(accountDetails.getTotalAmount() + depositDetails.getAmountDeposited());
+		session.save(accountDetails);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	// Methods for adding Test Data
@@ -59,4 +71,5 @@ public class UserAccountDao {
 		session.getTransaction().commit();
 		session.close();
 	}
+
 }
